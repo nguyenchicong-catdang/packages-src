@@ -32,3 +32,8 @@
 > composer update vendor-path/package-src
 
 > composer dump-autoload
+
+## use
+> use Vendorpath\Src
+
+> use Vendorpath\Wp
