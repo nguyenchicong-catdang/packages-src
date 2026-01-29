@@ -24,4 +24,22 @@ sed -i "s#dev-\*#dev-$CURRENT_BRANCH#g" "$DEST_FILE"
     cd "$RUN_LARAVEL" || exit
     rm -f composer.lock
     composer install
+    composer dump-autoload
 )
+# link ảo
+# ln -s ~/git/packages-app/laravel-app/vendor ~/git/packages-src/vendor
+# 5. Tạo link ảo cho vendor (để VS Code hết báo đỏ)
+echo "--- Đang tạo liên kết ảo cho vendor ---"
+VENDOR_LINK="$ROOT_BASH/vendor"
+TARGET_VENDOR="$RUN_LARAVEL/vendor"
+
+if [ -L "$VENDOR_LINK" ]; then
+    rm "$VENDOR_LINK" # Xóa link cũ nếu có để cập nhật mới
+fi
+
+if [ -d "$TARGET_VENDOR" ]; then
+    ln -s "$TARGET_VENDOR" "$VENDOR_LINK"
+    echo "Đã tạo link ảo: $VENDOR_LINK -> $TARGET_VENDOR"
+else
+    echo "Cảnh báo: Không tìm thấy thư mục vendor mục tiêu để tạo link."
+fi
