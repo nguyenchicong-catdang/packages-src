@@ -13,7 +13,12 @@ export ROOT_LARAVEL=$(cd -- "$SCRIPT_DIR/../../packages-app" && pwd)
 # run laravel-app
 export RUN_LARAVEL=$(cd -- "$ROOT_LARAVEL/laravel-app" && pwd)
 # run bash
+## copy composer-json
 bash "$ROOT_BASH/setup/bash/copy_laravel-app_composer-json.sh"
+## copy .env
+bash "$ROOT_BASH/setup/bash/copy_laravel_env.sh"
+
+
 echo "ROOT_BASH: $ROOT_BASH"
 echo "ROOT_LARAVEL: $ROOT_LARAVEL"
 echo "RUN_LARAVEL: $RUN_LARAVEL"

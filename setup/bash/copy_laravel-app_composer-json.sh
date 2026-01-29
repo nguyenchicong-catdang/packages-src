@@ -1,30 +1,27 @@
 #!/bin/bash
-# setup/bash/copy_laravel-app_composer-json.sh
-# ~/git/packages-src/setup/bash/copy_laravel-app_composer-json.sh
+# Lấy tên nhánh hiện tại
+CURRENT_BRANCH=$(cd "$ROOT_BASH" && git rev-parse --abbrev-ref HEAD)
+echo "Đang ở nhánh: $CURRENT_BRANCH. Tự động cấu hình Composer..."
 
-#echo "copy_laravel-app_composer-json: $ROOT_BASH"
-#echo "copy_laravel-app_composer-json: $ROOT_LARAVEL"
-
+# Đảm bảo đường dẫn file chính xác
 SOURCE_FILE="$ROOT_BASH/setup/laravel-app/composer.json"
-DEST_FILE="$ROOT_LARAVEL/laravel-app/composer.json"
+DEST_FILE="$RUN_LARAVEL/composer.json"
 
-# Copy
+# Kiểm tra file nguồn có tồn tại không trước khi copy
+if [ ! -f "$SOURCE_FILE" ]; then
+    echo "Lỗi: Không tìm thấy file nguồn tại $SOURCE_FILE"
+    exit 1
+fi
+
 cp "$SOURCE_FILE" "$DEST_FILE"
-#echo "$SOURCE_FILE && $DEST_FILE & $RUN_LARAVEL"
 
-# cd laravel-app
+# SỬA TẠI ĐÂY: Dùng dấu # thay cho / để tránh lỗi "p/g"
+# Lệnh này sẽ tìm chuỗi "dev-*" và thay bằng "dev-tên_nhánh"
+sed -i "s#dev-\*#dev-$CURRENT_BRANCH#g" "$DEST_FILE"
+
+# 4. Chạy Composer
 (
     cd "$RUN_LARAVEL" || exit
-    composer update vendor-path/package-src
-    composer dump-autoload
+    rm -f composer.lock
+    composer install
 )
-# run composer
-# composer dump-autoload
-# /home/cong/git/packages-app/laravel-app/composer.json
-# laravel-app/package.json
-# Bây giờ bạn dùng biến SCRIPT_DIR để xây dựng đường dẫn
-#SOURCE_FILE="$SCRIPT_DIR/file_goc.txt"
-#DEST_FILE="$SCRIPT_DIR/file_copy.txt"
-
-# Copy
-#cp "$SOURCE_FILE" "$DEST_FILE"
