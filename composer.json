@@ -1,0 +1,10 @@
+{
+    "name": "vendor-path/package-src",
+    "description": "Một package siêu cấp SRC",
+    "autoload": {
+        "psr-4": {
+            "Vendorpath\\Src\\": "src/",
+            "Vendorpath\\Wp\\": "wp/"
+        }
+    }
+}
