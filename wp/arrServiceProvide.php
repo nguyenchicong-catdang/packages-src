@@ -1,4 +1,4 @@
 <?php
 return [
-    \Vendorpath\Wp\WpServiceProvider::class,
+    Vendorpath\Wp\WpServiceProvider::class,
 ];
