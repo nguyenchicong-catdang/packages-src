@@ -1,5 +1,5 @@
 {
-  "name": "vendor-path/package-src",
+  "name": "vendor-path/packages-src",
   "description": "Một package siêu cấp SRC",
   "autoload": {
     "psr-4": {
