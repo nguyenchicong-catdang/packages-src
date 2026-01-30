@@ -1,0 +1,1 @@
+<div id="rootLaravelSidebarHtml">test</div>
