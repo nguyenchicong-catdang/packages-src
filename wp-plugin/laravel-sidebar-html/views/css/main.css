@@ -1,3 +1,12 @@
-#rootLaravelSidebarHtml {
-    background-color: rgb(74, 192, 63);
+#rootLaravelSidebarHtmlEdit {
+    display: flex;
+    padding: 2%;
+}
+#rootLaravelSidebarHtmlEdit div {
+    width: 50%;
+}
+
+/* editSidebar */
+#editSidebar form textarea {
+    width: 100%;
 }

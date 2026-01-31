@@ -4,8 +4,13 @@
 if (!function_exists('assets_laravel_sidebar_html')) {
     function assets_laravel_sidebar_html($hook)
     {
-        //echo $hook;
-        if ('toplevel_page_laravel-sidebar-html' !== $hook) {
+        // echo $hook;
+        // chỉ địmh hook
+        // if ('toplevel_page_laravel-sidebar-html' !== $hook) {
+        //     return;
+        // }
+        // dùng chung toàn plugin
+        if (strpos($hook, 'laravel-sidebar-html') === false) {
             return;
         }
 
