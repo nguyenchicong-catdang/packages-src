@@ -31,5 +31,5 @@ if (!function_exists('action_edit_laravel_sidebar_html')) {
         exit; // Luôn có exit sau redirect
     }
 
-    add_action('admin_post_action_edit_laravel_sidebar_html', 'action_edit_laravel_sidebar_html');
+    // add_action('admin_post_action_edit_laravel_sidebar_html', 'action_edit_laravel_sidebar_html');
 }

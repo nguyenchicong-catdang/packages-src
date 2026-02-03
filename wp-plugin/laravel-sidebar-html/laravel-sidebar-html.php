@@ -52,15 +52,31 @@ if (!function_exists('laravel_sidebar_html')) {
     add_action('admin_menu', 'laravel_sidebar_html');
 
     // 2. CHỈ nạp file xử lý POST khi dữ liệu đang được gửi lên
-    if (is_admin() && isset($_POST['action']) && $_POST['action'] === 'action_edit_laravel_sidebar_html') {
+    // if (is_admin() && isset($_POST['action']) && $_POST['action'] === 'action_edit_laravel_sidebar_html') {
+    //     require_once ROOT_PLUGIN . "laravel-sidebar-html/actions/admin_post_action_edit_laravel_sidebar_html.php";
+    // }
+    add_action('admin_post_action_edit_laravel_sidebar_html', function () {
+        // 1. Chỉ khi người dùng nhấn "Update", dòng này mới chạy.
+        // Các trang khác (Viết bài, Dashboard) sẽ hoàn toàn lờ đi file này.
         require_once ROOT_PLUGIN . "laravel-sidebar-html/actions/admin_post_action_edit_laravel_sidebar_html.php";
-    }
 
-    // 3. CHỈ nạp file Assets (CSS/JS) và Render khi ở đúng trang của Plugin
-    add_action('admin_enqueue_scripts', function ($hook) {
-        if (strpos($hook, 'laravel-sidebar-html') !== false) {
-            require_once ROOT_PLUGIN . "laravel-sidebar-html/core/render_laravel_sidebar_html.php";
-            require_once ROOT_PLUGIN . "laravel-sidebar-html/core/assets_laravel_sidebar_html.php";
+        // 2. Kiểm tra an toàn xem hàm xử lý có tồn tại trong file vừa nạp không.
+        if (function_exists('action_edit_laravel_sidebar_html')) {
+            action_edit_laravel_sidebar_html();
         }
     });
+
+    // nạp file Render khi ở đúng trang của Plugin
+    // require_once ROOT_PLUGIN . "laravel-sidebar-html/core/render_laravel_sidebar_html.php";
+
+    // nạp file Assets (CSS/JS)
+    // require_once ROOT_PLUGIN . "laravel-sidebar-html/core/assets_laravel_sidebar_html.php";
+    // Chỉ nạp các file xử lý giao diện khi người dùng đang ở trong Admin Dashboard
+    if (is_admin()) {
+        // nạp file Render
+        require_once ROOT_PLUGIN . "laravel-sidebar-html/core/render_laravel_sidebar_html.php";
+
+        // nạp file Assets (CSS/JS)
+        require_once ROOT_PLUGIN . "laravel-sidebar-html/core/assets_laravel_sidebar_html.php";
+    }
 }
