@@ -1,4 +1,5 @@
 <?php
+// wp/WpServiceProvider.php
 namespace Vendorpath\Wp;
 
 use Illuminate\Support\Facades\Blade;

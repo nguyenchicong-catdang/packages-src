@@ -1,5 +1,5 @@
 <?php
-
+// wp/Components/Sidebars/SidebarLoader.php
 namespace Vendorpath\Wp\Components\Sidebars;
 
 use Corcel\Model\Option;
