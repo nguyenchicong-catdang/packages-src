@@ -17,13 +17,12 @@ cp "$SOURCE_FILE" "$DEST_FILE"
 
 # SỬA TẠI ĐÂY: Dùng dấu # thay cho / để tránh lỗi "p/g"
 # Lệnh này sẽ tìm chuỗi "dev-*" và thay bằng "dev-tên_nhánh"
-# sed -i "s#dev-\*#dev-$CURRENT_BRANCH#g" "$DEST_FILE"
+sed -i "s#dev-\*#dev-$CURRENT_BRANCH#g" "$DEST_FILE"
 
 # 4. Chạy Composer
 (
     cd "$RUN_LARAVEL" || exit
-    # rm -f composer.lock
-    # composer install
-    # composer dump-autoload
-    composer update vendor-path/packages-src --prefer-source
+    rm -f composer.lock
+    composer install
+    composer dump-autoload
 )

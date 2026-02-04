@@ -9,7 +9,9 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 export ROOT_BASH=$(cd -- "$SCRIPT_DIR/.." && pwd)
 # /home/cong/git/packages-app/laravel-app/composer.json
 # root laravel
-export ROOT_LARAVEL=$(cd -- "$SCRIPT_DIR/../.." && pwd)
+# $HOME/git/packages-app
+# export ROOT_LARAVEL=$(cd -- "$SCRIPT_DIR/../.." && pwd)
+export ROOT_LARAVEL=$(cd -- "$HOME/git/packages-app" && pwd)
 # run laravel-app
 export RUN_LARAVEL=$(cd -- "$ROOT_LARAVEL/laravel-app" && pwd)
 # run bash
