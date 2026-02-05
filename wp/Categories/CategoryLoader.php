@@ -92,7 +92,7 @@ class CategoryLoader extends Taxonomy
             // ->published()
             // ->where('post_status', 'publish')
             // ->with(['meta', 'thumbnail.attachment.meta']) // Thêm 'thumbnail' vào đây để lấy thông tin ảnh luôn
-            ->paginate(1)
+            ->paginate(2)
             // ->withQueryString()
             ;
 
