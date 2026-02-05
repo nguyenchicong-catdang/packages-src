@@ -3,7 +3,7 @@
 <div class="card mb-3 shadow-sm border-0 overflow-hidden">
     <div class="row g-0">
         {{-- Cột ảnh 1:1 --}}
-        <div class="col-6 col-md-3 mx-auto">
+        <div class="col-md-3">
             <div class="ratio ratio-1x1 bg-light">
                 <img src="{{ $post->thumbnail->attachment->url }}" class="object-fit-cover" alt="{{ $post->title }}">
             </div>

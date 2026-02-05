@@ -15,12 +15,12 @@
     <main class="container">
         <div class="row">
             {{-- Sidebar: Mặc định ẩn (d-none), hiện khi màn hình từ Large trở lên (d-lg-block) --}}
-            <div class="col-lg-4 d-none d-lg-block">
+            <div class="col-lg-3 d-none d-lg-block">
                 <x-wp-compName::sidebar-component />
             </div>
 
             {{-- Content: Mặc định 100% (col-12), chiếm 8 phần khi màn hình lớn (col-lg-8) --}}
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-9">
                 {{ $slot }}
             </div>
         </div>
