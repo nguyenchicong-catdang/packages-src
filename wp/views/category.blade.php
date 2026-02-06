@@ -1,5 +1,5 @@
 {{debug($cat)}}
-{{debug($posts)}}
+{{debug($posts->items())}}
 {{-- {{debug($paginate)}} --}}
 <x-wp-comp::layout>
     <x-slot name="title">

@@ -83,15 +83,20 @@ class CategoryLoader extends Taxonomy
         //     ])
         //     ->firstOrFail();
 
-        $category = self::slug($slug)->firstOrFail();
+        $category = self::slug($slug)
+            ->firstOrFail();
 
         $posts = $category
         ->posts()
         ->status('publish')
-        ->with(['thumbnail'])
+            // ->with(['thumbnail.attachment'])
             // ->published()
             // ->where('post_status', 'publish')
             // ->with(['meta', 'thumbnail.attachment.meta']) // Thêm 'thumbnail' vào đây để lấy thông tin ảnh luôn
+            // Lọc: Chỉ lấy những post có meta_key là _thumbnail_id
+            // ->hasMeta('_thumbnail_id')
+            // Eager load luôn để tránh N+1 khi hiển thị
+            ->with(['thumbnail'])
             ->paginate(2)
             // ->withQueryString()
             ;
@@ -101,4 +106,6 @@ class CategoryLoader extends Taxonomy
             'posts' => $posts // Đừng dùng ->getCollection() nếu bạn muốn giữ lại thanh phân trang (links)
         ];
     }
+
+    
 }

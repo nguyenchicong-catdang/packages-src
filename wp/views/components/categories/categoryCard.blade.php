@@ -5,7 +5,10 @@
         {{-- Cột ảnh 1:1 --}}
         <div class="col-6 col-md-3 mx-auto">
             <div class="ratio ratio-1x1 bg-light">
-                <img src="{{ $post->thumbnail->attachment->url }}" class="object-fit-cover" alt="{{ $post->title }}">
+                {{-- <img src="{{ $post->thumbnail?->attachment->url }}" class="object-fit-cover" alt="{{ $post->thumbnail?->attachment->alt }}"> --}}
+                <img src="{{ $post->featured_image_url }}" 
+                alt="{{ $post->featured_image_alt }}" 
+                class="object-fit-cover">
             </div>
         </div>
 
