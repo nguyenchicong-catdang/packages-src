@@ -1,7 +1,13 @@
 <x-wp-comp::layout>
     <x-slot name="title">
-        Trang Post
+        {{ $post->title }}
     </x-slot>
-    <p>views/post.blade.php</p>
+    {{debug($data)}}
     {{debug($post)}}
+        {{debug($post->featured_src)}}
+                {{debug($post->featured_alt)}}
+
+
+
+
 </x-wp-comp::layout>

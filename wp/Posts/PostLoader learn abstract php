@@ -1,0 +1,20 @@
+<?php
+class PostData extends BaseDTO
+{
+    public function __construct(
+        public readonly string $title,
+        public readonly string $featured_src,
+        public readonly string $excerpt = '', // Mặc định luôn là chuỗi
+        public readonly array $tags = [],     // Admin không nhập thì là mảng rỗng
+    ) {}
+
+    public static function fromModel($post): self
+    {
+        return self::fromArray([
+            'title'        => data_get($post, 'post_title'),
+            'featured_src' => data_get($post, 'thumbnail.url'),
+            'excerpt'      => data_get($post, 'post_excerpt'),
+            'tags'         => data_get($post, 'tags'),
+        ]);
+    }
+}

@@ -9,6 +9,6 @@ class PostController extends Controller
     public function show($slug, PostService $service)
     {
         $data = $service->toArray($slug);
-        return view('wp-view::post', ['post' => (object) $data]);
+        return view('wp-view::post', $data);
     }
 }
