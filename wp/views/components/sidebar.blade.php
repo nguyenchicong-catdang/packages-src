@@ -1,5 +1,6 @@
 <div class="list-group">
   <a href="/category/thung-rac" class="list-group-item list-group-item-action">Thung rac</a>
+  <a href="/category/no-thing" class="list-group-item list-group-item-action">No Thing</a>
 
   <hr>
     <a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>

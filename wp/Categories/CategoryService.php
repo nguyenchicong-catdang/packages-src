@@ -6,9 +6,10 @@ class CategoryService
     public function __construct(
         protected Interface\CategoryLoaderInterface $loader
     ) {}
-    public function show($slug): CategoryData
+    public function show($slug)
     {
         $data = $this->loader->getCategory($slug);
         return CategoryData::fromLoader($data);
+        // return $data;
     }
 }

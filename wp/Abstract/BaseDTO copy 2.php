@@ -19,25 +19,23 @@ abstract class BaseDTO
             self::$reflectionCache[$class] = (new \ReflectionClass($class))->getConstructor()->getParameters();
         }
 
+        // Chuyển đổi object thành array theo map của lớp con
         $data = static::map($loader);
         $parameters = self::$reflectionCache[$class];
+
         $resolvedData = [];
 
         foreach ($parameters as $param) {
             $name = $param->getName();
+            // Lấy dữ liệu từ $data, nếu không có thì lấy giá trị mặc định của Constructor
 
-            // Lấy dữ liệu thô
-            $value = data_get($data, $name);
-
-            // Ưu tiên giá trị mặc định của Constructor nếu có
-            if ($value === null && $param->isDefaultValueAvailable()) {
-                $value = $param->getDefaultValue();
-            }
-
-            // Ép kiểu để luôn khớp với "Hợp đồng" đã ký với Front-end
+            // Nếu vẫn không có nữa thì gán null hoặc chuỗi rỗng tùy kiểu dữ liệu
+            // $value = $data->$name ?? ($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+            // $value = $data[$name] ?? ($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+            $value = data_get($data, $name, $param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+            // "Ép" kiểu dữ liệu để không bao giờ bị TypeError
             $resolvedData[$name] = self::sanitize($value, $param->getType()?->getName());
         }
-
         return new static(...$resolvedData);
     }
 
@@ -48,7 +46,6 @@ abstract class BaseDTO
             'int'    => (int) ($value ?? 0),
             'array'  => (array) ($value ?? []),
             'object' => (object) ($value ?? new \stdClass()),
-            'bool'   => (bool) ($value ?? false),
             default  => $value,
         };
     }
