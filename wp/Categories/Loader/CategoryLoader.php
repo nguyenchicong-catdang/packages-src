@@ -10,7 +10,9 @@ class CategoryLoader extends Taxonomy implements CategoryLoaderInterface
         $category = self::slug($slug)
          ->firstOrFail();
 
-        $posts = $category->posts()->status('publish')->get();
+        $posts = $category->posts()
+            ->status('publish')
+            ->paginate(5);
 
         return [
             'category' => $category,
