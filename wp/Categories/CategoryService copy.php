@@ -9,6 +9,7 @@ class CategoryService
     public function show($slug)
     {
         $data = $this->loader->getCategory($slug);
+        CategoryData::dev($data); // for debugging
         $data_cache = CategoryData::prepare($data);
         return CategoryData::fromLoader($data_cache);
 

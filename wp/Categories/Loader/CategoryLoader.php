@@ -12,7 +12,8 @@ class CategoryLoader extends Taxonomy implements CategoryLoaderInterface
 
         $posts = $category->posts()
             ->status('publish')
-            ->paginate(5);
+            ->with(['meta', 'thumbnail.attachment'])
+            ->paginate(1);
 
         return [
             'category' => $category,
