@@ -1,40 +1,26 @@
 <?php
 // Categories/CategoryData.php
 namespace Vendorpath\Wp\Categories;
-use Vendorpath\Wp\Abstract\BaseDTO;
 
-class CategoryData extends BaseDTO
+
+class CategoryData
 {
     public function __construct(
-        public readonly object $dev,
-        public readonly array $category,
-        public readonly array $posts,
-        public readonly array $cat_card,
-        public readonly array $pagination,
+        public readonly object $category,
+        public readonly object $paginator,
+        public readonly object $catCard,
+        public readonly object $catPosts,
     ) {}
 
-    protected static function map(object|array $data): array|object
+    public static function fromLoader(array $loader): self
     {
-        return [
-            'dev' => $data,
-            'category' => data_get($data, 'category', []),
-            'posts' => data_get($data, 'posts', []),
-            'cat_card' => DTO\CatCard::map($data),
-            'pagination' => data_get($data, 'pagination', []),
-        ];
-    }   
-
-    public static function prepare(array|object $data): array
-    {
-        $cat = data_get($data, 'category', []);
-        // LengthAwarePaginator
-        $postsPaginator = data_get($data, 'posts', []); // Đây là đối tượng LengthAwarePaginator
-
-        return [
-            'dev' => $data,
-            'category' => DTO\CatData::map($cat),
-            'posts' => $postsPaginator->getCollection()->map(fn($post) => DTO\CatPosts::map($post))->toArray(),
-            'pagination' => DTO\CatPagination::map($postsPaginator),
-        ];
+        return new self(
+            category: (object) ($loader['category'] ?? []),
+            paginator: (object) ($loader['paginator'] ?? []),
+            catCard: DTO\CatCardDTO::DTO((object) ($loader['category'] ?? [])),
+            catPosts: collect(data_get($loader, 'paginator.items', []))->map(function ($post) {
+                return DTO\CatPostsDTO::DTO((object) $post);
+            }),
+        );
     }
 }

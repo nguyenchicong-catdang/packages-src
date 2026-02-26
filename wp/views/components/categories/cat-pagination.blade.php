@@ -1,3 +1,9 @@
+{{-- {{debug($data['items'][0]->thumbnail->attachment)}}
+@php
+    $meta_raw = $data['items'][0]->thumbnail->attachment->meta->_wp_attachment_metadata;
+    $meta_array = unserialize($meta_raw);
+@endphp
+{{debug($meta_array['sizes'])}} --}}
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         {{-- Nút Previous --}}

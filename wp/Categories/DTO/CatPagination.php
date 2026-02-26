@@ -29,6 +29,7 @@ class CatPagination extends \Vendorpath\Wp\Abstract\BaseDTO
                 'lastPage'    => $data->lastPage(),
                 'perPage'     => $data->perPage(),
                 'total'        => $data->total(),
+                'items'        => $data->items(),
                 // 'nextPageUrl' => $data->nextPageUrl(),
                 // 'prevPageUrl' => $data->previousPageUrl(),
                 // 'getPageName' => $data->getPageName(),

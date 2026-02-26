@@ -8,8 +8,10 @@ class CategoryService
     ) {}
     public function show($slug)
     {
-        $data_loader = $this->loader->getCategory($slug);
-        $data_cache = CategoryCacheArray::cache($data_loader);
+        $data = $this->loader->getCategory($slug);
+        $data_cache = CategoryData::prepare($data);
         return CategoryData::fromLoader($data_cache);
+
+        // return $data;
     }
 }

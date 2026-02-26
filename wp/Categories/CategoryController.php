@@ -9,6 +9,6 @@ class CategoryController
     public function show($slug, CategoryService $service): View
     {
         $data = $service->show($slug);
-        return view('wp-view::category', ['cat' => $data]);
+        return view('wp-view::category', ['data' => $data]);
     }
 }
