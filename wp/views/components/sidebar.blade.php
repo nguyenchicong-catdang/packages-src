@@ -14,3 +14,6 @@
   <a href="#" class="list-group-item list-group-item-action list-group-item-light">A simple light list group item</a>
   <a href="#" class="list-group-item list-group-item-action list-group-item-dark">A simple dark list group item</a>
 </div>
+
+{{-- <x-wp-comp::esi src="/esi/popular-posts" class="my-5" /> --}}
+<x-wp-comp::esi view="esi.popular-posts" url="/esi/popular-posts" />
