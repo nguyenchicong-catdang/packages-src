@@ -7,7 +7,6 @@ class MainWpServiceProvider extends AggregateServiceProvider
 {
     protected $providers = [
         \Vendorpath\Wp\WpServiceProvider::class,
-        \Vendorpath\Wp\Components\Sidebars\SidebarServiceProvider::class,
-        \Corcel\Laravel\CorcelServiceProvider::class,
+        // \Vendorpath\Wp\Components\Sidebars\SidebarServiceProvider::class,
     ];
 }

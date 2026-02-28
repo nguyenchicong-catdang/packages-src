@@ -7,19 +7,15 @@ use Illuminate\View\Component;
 
 class SidebarComponent extends Component
 {
-    // Sử dụng Property Promotion (PHP 8+) để code gọn hơn
-    public function __construct(
-        protected Sidebars\SidebarService $service
-    ) {}
     public function render(): View
     {
         \Fruitcake\LaravelDebugbar\Facades\Debugbar::startMeasure('load_service', 'Thời gian tải Sidebar Service');
 
-        // $service = app(Sidebars\SidebarService::class);
-        $data = $this->service->toArray();
+        $service = app(Sidebars\SidebarService::class);
+        $data = $service->toArray();
 
         \Fruitcake\LaravelDebugbar\Facades\Debugbar::stopMeasure('load_service');
         // Trỏ về file: wp/views/components/sidebar.blade.php
-        return view('wp-view::components.esi.sidebar', ['data' => $data]);
+        return view('wp-view::components.sidebar', ['data' => $data]);
     }
 }

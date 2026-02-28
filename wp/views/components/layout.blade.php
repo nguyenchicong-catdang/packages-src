@@ -12,7 +12,8 @@
     <main class="container">
         <div class="row">
             <div class="col-4">
-                <x-wp-compName::sidebar-component />
+                <x-wp-comp::sidebar />
+                {{-- <x-wp-compName::sidebar-component /> --}}
             </div>
             <div class="col-8">
                 {{$slot}}

@@ -3,7 +3,7 @@
 namespace Vendorpath\Wp\Components\Sidebars;
 class SidebarActionWithClasses
 {
-    public function addClass(string $data): string
+    public function addClass(?string $data): string
     {
         // Regex tìm thẻ <a> và thêm class
         // $1 đại diện cho phần nội dung đứng trước dấu > của thẻ mở <a>
