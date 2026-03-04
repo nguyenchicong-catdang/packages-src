@@ -7,12 +7,12 @@ use Corcel\Model\Option;
 class SidebarLoader extends Option
 {
     // Nếu bạn đặt tên kết nối là 'wordpress' trong database.php
-    protected $connection = 'wordpress';
+    // protected $connection = 'wordpress';
 
     public function getDataSidebar()
     {
         // CÁCH ĐÚNG: dùng static:: thay vì Option::
         // static:: sẽ sử dụng $connection = 'wordpress' bạn đã khai báo ở trên
-        return SidebarLoader::get('laravel_sidebar_html');
+        return self::get('laravel_sidebar_html');
     }
 }

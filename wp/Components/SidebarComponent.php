@@ -12,7 +12,7 @@ class SidebarComponent extends Component
         \Fruitcake\LaravelDebugbar\Facades\Debugbar::startMeasure('load_service', 'Thời gian tải Sidebar Service');
 
         $service = app(Sidebars\SidebarService::class);
-        $data = $service->toAray();
+        $data = $service->toArray();
 
         \Fruitcake\LaravelDebugbar\Facades\Debugbar::stopMeasure('load_service');
         // Trỏ về file: wp/views/components/sidebar.blade.php
