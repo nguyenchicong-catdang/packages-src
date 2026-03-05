@@ -1,6 +1,5 @@
-{{debug($data)}}
-<h3>Sidebar</h3>
-
-<div class="list-group">
-    {!! $data['data'] !!}
-</div>
+@env('local')
+    {!! \Vendorpath\Wp\Esi\Sidebars\SidebarEsi::esi()->getContent() !!}
+@else
+    <esi:include src="/esi/sidebar" />
+@endenv

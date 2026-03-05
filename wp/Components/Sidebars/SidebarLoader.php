@@ -15,4 +15,10 @@ class SidebarLoader extends Option
         // static:: sẽ sử dụng $connection = 'wordpress' bạn đã khai báo ở trên
         return self::get('laravel_sidebar_html');
     }
+
+    public function fakeData()
+    {
+        // Dữ liệu giả để test khi chưa có kết nối DB hoặc trong môi trường local
+        return '<a href="#">Fake Sidebar Item</a>';
+    }
 }

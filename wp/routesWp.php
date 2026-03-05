@@ -12,7 +12,12 @@ Route::get('/', function(){
 
 // esi
 Route::prefix('esi')->group(function() {
+    // sidebar
     Route::get('/sidebar', function() {
-        return \Vendorpath\Wp\Components\Sidebars\SidebarEsi::getHtml();
+        return \Vendorpath\Wp\Esi\Sidebars\SidebarEsi::esi();
+    });
+    // navbar
+    Route::get('/navbar', function() {
+        return \Vendorpath\Wp\Esi\Navbars\NavbarEsi::esi();
     });
 });

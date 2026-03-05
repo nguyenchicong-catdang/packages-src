@@ -13,43 +13,57 @@ class SidebarEsi
      */
     public static function getHtml(): Response
     {
-        $fileName = 'sidebar.html';
+        $fileName = 'sidebar.php';
+        $filePath = Storage::path($fileName);
+        $backupKey = 'sidebar_fallback_content';
 
-        // TRƯỜNG HỢP 1: File đã tồn tại (Đã qua bước khởi tạo)
-        if (Storage::exists($fileName)) {
-            return response(Storage::get($fileName))
-                ->header('Cache-Control', 'public, max-age=86400'); // Cache dài hạn (24h)
+        // 1. Ưu tiên số 1: File vật lý (OPcache hỗ trợ)
+        if (file_exists($filePath)) {
+            return response(include($filePath))
+                ->header('Cache-Control', 'public, max-age=86400');
         }
 
-        // 2. Nếu chưa có file, dùng Atomic Lock để giành quyền Query
-        $lock = Cache::lock('run-query-sidebar', 10);
+        // 2. Thử lấy Lock để sinh file mới
+        $lock = Cache::lock('run-query-sidebar', 40);
 
         if ($lock->get()) {
             try {
-                // Double-check: Đề phòng trường hợp file vừa được tạo trong tíc tắc trước
-                if (Storage::exists($fileName)) {
-                    return response(Storage::get($fileName))
-                        ->header('Cache-Control', 'public, max-age=86400');
-                }
+                ignore_user_abort(true);
+                set_time_limit(30);
 
                 $service = app(SidebarService::class);
-                $data = $service->toArray();
-                $html = view('wp-view::components.sidebar', ['data' => $data])->render();
+                $html = view('wp-view::esi.sidebar', ['data' => $service->toArray()])->render();
 
-                // Lưu vào Storage cho các request sau
-                Storage::put($fileName, $html);
+                // Ghi file PHP (Dùng hàm thuần PHP để đảm bảo tối đa hiệu năng và atomic)
+                $content = "<?php return " . var_export($html, true) . ";";
+                $tempPath = $filePath . '.' . uniqid() . '.tmp';
 
-                return response($html)
-                    ->header('Cache-Control', 'public, max-age=60'); // Cache ngắn hạn cho lần đầu
+                if (file_put_contents($tempPath, $content) !== false) {
+                    rename($tempPath, $filePath);
+                    if (function_exists('opcache_invalidate')) {
+                        @opcache_invalidate($filePath, true);
+                    }
+
+                    // Cập nhật luôn fallback cache để dùng cho lần update sau
+                    Cache::put($backupKey, $html, 3600);
+                }
+
+                return response($html)->header('Cache-Control', 'public, max-age=60');
             } finally {
                 $lock->release();
             }
         }
 
-        // TRƯỜNG HỢP 3: Không lấy được khóa (Lock bị chiếm)
-        // Trả về placeholder và cho phép Varnish/Proxy cache trong 1 phút
-        return response(self::placeholder())
-            ->header('Cache-Control', 'public, max-age=60');
+        // 3. Ưu tiên số 2: Nếu đang bị lock, lấy hàng từ Cache Remember (HTML cũ)
+        $fallback = Cache::get($backupKey);
+        if ($fallback) {
+            return response($fallback)->header('Cache-Control', 'public, max-age=60');
+        }
+        // xóa cache fallback nếu file đã tồn tại để tránh dùng cache cũ khi đã có file mới
+        // DELETE FROM cache WHERE expiration < UNIX_TIMESTAMP();
+
+        // 4. Cuối cùng: Placeholder (Chỉ xuất hiện khi Deploy lần đầu hoặc Cache Redis chết)
+        return response(self::placeholder())->header('Cache-Control', 'public, max-age=10');
     }
 
     private static function placeholder(): string
