@@ -1,7 +1,8 @@
 <?php
-
 namespace Vendorpath\Wp\Esi\Navbars;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class NavbarEsi
@@ -10,14 +11,26 @@ class NavbarEsi
     {
         $fileName = 'navbar.php';
         $filePath = Storage::path($fileName);
+        $cacheActive = 'cache_active';
         // 1. Ưu tiên số 1: File vật lý (OPcache hỗ trợ)
         if (file_exists($filePath)) {
             return response(include($filePath))
                 ->header('Cache-Control', 'public, max-age=86400');
         }
-        // kiểm tra file lock
-        if (\Vendorpath\Wp\Utils\LockFile::canProceed()) {
+        // kiểm tra cache active
+        if (Cache::has($cacheActive)) {
+            return response('Hệ thông đang cập nhật, vui long F5 sau 1 phút')->header('Cache-Control', 'public, max-age=60');
+        }
+        // 2. Thử lấy Lock để sinh file mới
+        $lock = Cache::lock('lock-query', 40);
+        if ($lock->get()) {
+            Cache::add($cacheActive, true, 5);
+
+            Log::debug('Lock acquired for generating navbar ESI content' . $lock->get());
             try {
+                // GIẢ LẬP: Treo máy 10 giây để "dụ" các request khác vào chiếm lock
+                // sleep(3);
+
                 ignore_user_abort(true);
                 set_time_limit(30);
 
@@ -37,9 +50,10 @@ class NavbarEsi
                     return response($html)->header('Cache-Control', 'public, max-age=60');
                 }
             } finally {
-                // Không cần release gì cả vì LockFile đã tự động hết hạn
+                $lock->release();
             }
         }
+        // 3. Ưu tiên số 2: Nếu đang bị lock, lấy hàng từ Cache Remember (HTML cũ)
         return response('Hệ thông đang cập nhật, vui long F5 sau 1 phút')->header('Cache-Control', 'public, max-age=60');
     }
 }
