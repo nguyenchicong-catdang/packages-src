@@ -6,15 +6,19 @@ class SidebarService
     public function __construct(
         // Inject các service cần thiết để lấy dữ liệu cho sidebar
         protected SidebarLoader $sidebarLoader,
-        protected SidebarActionAddClass $sidebarActionAddClass
+        protected SidebarActionParse $sidebarActionParse,
+        // protected SidebarActionAddClass $sidebarActionAddClass
     )
     {}
 
-    public function service(): string
+    public function service(): string|array
     {
         // Lấy dữ liệu từ các service và chuẩn bị mảng dữ liệu cho view
-        $data = $this->sidebarLoader->loader();
-        $dataWithClasses = $this->sidebarActionAddClass->action($data);
-        return $dataWithClasses;
+        $dataLoader = $this->sidebarLoader->loader();
+        $dataArray = $this->sidebarActionParse->action($dataLoader);
+        return $dataArray;
+        // dd($dataArray);
+        // $dataWithClasses = $this->sidebarActionAddClass->action($dataLoader);
+        // return $dataWithClasses;
     }
 }

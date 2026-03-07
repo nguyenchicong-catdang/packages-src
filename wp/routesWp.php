@@ -10,6 +10,9 @@ Route::get('/', function(){
     return view('wp-view::index');
 });
 
+// dev
+Route::get('/dev',[\Vendorpath\Wp\Utils\DevController::class, 'dev']);
+
 // esi
 Route::prefix('esi')->group(function() {
     // sidebar
