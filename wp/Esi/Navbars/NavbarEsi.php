@@ -38,6 +38,8 @@ class NavbarEsi
                 }
             } finally {
                 // Không cần release gì cả vì LockFile đã tự động hết hạn
+                // flock($fp, LOCK_UN);
+                // fclose($fp);
             }
         }
         return response('Hệ thông đang cập nhật, vui long F5 sau 1 phút')->header('Cache-Control', 'public, max-age=60');

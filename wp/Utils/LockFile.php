@@ -4,27 +4,30 @@ namespace Vendorpath\Wp\Utils;
 
 use Illuminate\Support\Facades\Storage;
 
+
 class LockFile
 {
-    private static $fileName = 'lock_app.php';
-    private static $cacheTime = 2; // Nên để 10s để bù đắp độ trễ hệ thống
+    private static $fileTime = 'lock_app.php';
+    private static $fileLock = 'lock_setup.lock';
+    private static $cacheTime = 1; // Nên để 10s để bù đắp độ trễ hệ thống
 
     public static function canProceed()
     {
-        $path = Storage::path(self::$fileName);
+        $pathTime = Storage::path(self::$fileTime);
+        $pathLock = Storage::path(self::$fileLock);
         $now = time();
 
         // 1. Kiểm tra nhanh bên ngoài (Chặn 90% traffic mà không cần mở file)
-        if (file_exists($path)) {
-            $expireAt = @include($path); // Dùng @ để tránh warning nếu file đang bị ghi
-            if ($expireAt && $now < $expireAt) {
+        if (file_exists($pathTime)) {
+            $expireAt = file_get_contents($pathTime); // Dùng @ để tránh warning nếu file đang bị ghi
+            // dd(gettype((int) $expireAt));
+            if ($expireAt && $now < (int) $expireAt) {
                 return false;
             }
         }
 
         // 2. Mở file và chiếm khóa ngay
-        $fp = fopen($path, 'c+');
-        if (!$fp) return false;
+        $fp = fopen($pathLock, 'c+');
 
         // Chiếm khóa độc quyền, ông nào đến sau là "văng" luôn
         if (!flock($fp, LOCK_EX | LOCK_NB)) {
@@ -33,28 +36,30 @@ class LockFile
         }
 
         try {
+            ignore_user_abort(true);
+            set_time_limit(30);
             // 3. QUAN TRỌNG: Kiểm tra lại một lần nữa khi đã ở trong khóa
             // Đọc thủ công để tránh cache của include
-            rewind($fp);
-            $data = stream_get_contents($fp);
-            if (preg_match('/return (\d+);/', $data, $matches)) {
-                $expireAt = (int)$matches[1];
-                if ($now < $expireAt) {
-                    return false; // Ông trước vừa mới ghi xong rồi, mình rút!
+            if (file_exists($pathTime)) {
+                $expireAt = file_get_contents($pathTime); // Dùng @ để tránh warning nếu file đang bị ghi
+                if ($expireAt && $now < (int) $expireAt) {
+                    return false;
                 }
             }
 
             // 4. Ghi đè thời gian mới
-            $content = "<?php return " . ($now + self::$cacheTime) . ";";
-            ftruncate($fp, 0);
-            rewind($fp);
-            fwrite($fp, $content);
-            fflush($fp); // Ép dữ liệu xuống đĩa ngay lập tức
+            $content = $now + self::$cacheTime;
+            $tempPath = $pathTime . '.'  . uniqid() . '.tmp';
 
+            // ghi file
+            if(file_put_contents($tempPath, $content) !== false) {
+                rename($tempPath, $pathTime);
+            }
             return true;
         } finally {
             flock($fp, LOCK_UN);
             fclose($fp);
         }
+        return false;
     }
 }
