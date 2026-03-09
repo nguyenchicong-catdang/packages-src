@@ -20,7 +20,7 @@ class LockFile
         // 1. Kiểm tra nhanh bên ngoài (Chặn 90% traffic mà không cần mở file)
         if (file_exists($pathTime)) {
             $expireAt = file_get_contents($pathTime); // Dùng @ để tránh warning nếu file đang bị ghi
-            // dd(gettype((int) $expireAt));
+            // dd($expireAt);
             if ($expireAt && $now < (int) $expireAt) {
                 return false;
             }
