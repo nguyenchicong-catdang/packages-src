@@ -11,7 +11,15 @@ Route::get('/', function(){
 });
 
 // dev
-Route::get('/dev',[\Vendorpath\Wp\Utils\DevController::class, 'dev']);
+Route::prefix('dev')->group(function(){
+    // controller
+    Route::controller(\Vendorpath\Wp\Utils\DevController::class)->group(function(){
+        Route::get('', 'dev');
+        // category
+        Route::get('category', 'category');
+    });
+    
+});
 
 // esi
 Route::prefix('esi')->group(function() {

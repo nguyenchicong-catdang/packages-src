@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryEsiIds
 {
-    public function esi()
+    public function esi($slug = null)
     {
-        $fileName = 'categories_ids.php';
+        $fileName = "categories_$slug.php";
         $filePath = Storage::path($fileName);
         // 1. Ưu tiên số 1: File vật lý (OPcache hỗ trợ)
         if (file_exists($filePath)) {
@@ -21,9 +21,17 @@ class CategoryEsiIds
                 ignore_user_abort(true);
                 set_time_limit(30);
 
-                $service = app(CategoryService::class);
-                $dataIds = $service->serviceIds();
-                dd($dataIds);
+                $service = app(CategoryService::class)->service($slug);
+                $dataIds = $service->ids;
+
+                // var_export($data, true) sẽ chuyển mảng thành một chuỗi code PHP hợp lệ
+                $content = "<?php return " . var_export($dataIds, true) . ";";
+                $tempPath = $filePath . '.' . uniqid() . '.tmp';
+
+                if (file_put_contents($tempPath, $content) !== null) {
+                    rename($tempPath, $fileName);
+                }
+                return response($content)->header('Cache-Control', 'public, max-age=60');
 
             } finally {
 

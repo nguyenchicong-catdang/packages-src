@@ -7,9 +7,8 @@ class CategoryService
     public function __construct(
         protected CategoryLoader $loader
     ) {}
-    public function serviceIds()
+    public function service($slug = null)
     {
-        $dataLoader = $this->loader->loaderIds();
-        return $dataLoader;
+        return $this->loader->loader($slug);
     }
 }
