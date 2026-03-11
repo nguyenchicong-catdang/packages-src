@@ -28,10 +28,10 @@ class CategoryEsiIds
                 $content = "<?php return " . var_export($dataIds, true) . ";";
                 $tempPath = $filePath . '.' . uniqid() . '.tmp';
 
-                if (file_put_contents($tempPath, $content) !== null) {
-                    rename($tempPath, $fileName);
+                if (file_put_contents($tempPath, $content) !== false) {
+                    rename($tempPath, $filePath);
                 }
-                return response($content)->header('Cache-Control', 'public, max-age=60');
+                return response('$content')->header('Cache-Control', 'public, max-age=60');
 
             } finally {
 
