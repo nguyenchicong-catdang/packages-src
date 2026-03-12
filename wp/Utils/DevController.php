@@ -19,4 +19,11 @@ class DevController
         // return view($view, ['data' => $data]);
         return 'acb';
     }
+
+    public function catData()
+    {
+        $slug = 'thung-rac';
+        $data = app(\Vendorpath\Wp\Esi\Categories\CategoryDataCat::class)->getData($slug);
+        return view('wp-view::category', ['data' => $data]);
+    }
 }

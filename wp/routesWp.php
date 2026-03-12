@@ -17,6 +17,8 @@ Route::prefix('dev')->group(function(){
         Route::get('', 'dev');
         // category
         Route::get('category', 'category');
+        // category-data
+        Route::get('category-data', 'catData');
     });
     
 });
