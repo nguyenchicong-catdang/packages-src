@@ -6,17 +6,12 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryDataCat
 {
-    public function __construct(
-        protected CategoryLoader $loader,
-    )
-    {
-    }
     public function getData($slug = "")
     {
-        $fileName = "categories/data_cat.php";
+        $fileName = "categories/cat_data.php";
         $dataCat = [];
         if ($slug) {
-            $fileName = "categories/$slug/data_cat_$slug.php";
+            $fileName = "categories/$slug/cat_data_$slug.php";
         }
         $filePath = Storage::path($fileName);
         // 1. Ưu tiên số 1: File vật lý (OPcache hỗ trợ)
@@ -31,24 +26,22 @@ class CategoryDataCat
                 set_time_limit(30);
 
                 // get data
-                //$service = app(CategoryService::class)->service($slug);
-                $dataCat = $this->loader->loader($slug)->data_cat;
+                $service = app(CategoryService::class)->service($slug);
+                $dataCat = $service->data_cat;
                 // xử lý description
                 $description = $dataCat['description'] ?? '';
-                $parseDescription = app(CategoryActionParseDescription::class)->action($description);
+                $description = app(CategoryActionParseDescription::class)->action($description);
                 // thay thế $dataCat
-                // $dataCat['description'] = $description['clean_content'];
+                $dataCat['description'] = $description['clean_content'];
                 // them mới seo_img
-                // $dataCat['seo_img'] = $description['first_image_src'];
-                $dataCat = array_merge($dataCat, $parseDescription);
+                $dataCat['seo_img'] = $description['first_image_src'];
+                
                 // xư lý data dev
                 if (isset($dataCat['dev'])) {
                     unset($dataCat['dev']);
                 }
-                // add slug
-                $dataCat['slug'] = $slug;
                 // dd($description);
-                // dd($dataCat);
+                dd($dataCat);
                 // var_export($data, true) sẽ chuyển mảng thành một chuỗi code PHP hợp lệ
                 $content = "<?php return " . var_export($dataCat, true) . ";";
                 $tempPath = $filePath . '.' . uniqid() . '.tmp';
@@ -63,12 +56,8 @@ class CategoryDataCat
                 }
                 // Thực hiện ghi file tạm
 
-                if (file_put_contents($tempPath, $content) !== false) {
+                if (file_put_contents($tempPath, $content) !== true) {
                     rename($tempPath, $filePath);
-                    // Tùy chọn: Xóa cache OPcache để cập nhật ngay lập tức
-                    if (function_exists('opcache_invalidate')) {
-                        opcache_invalidate($filePath, true);
-                    }
                 }
                 return $dataCat;
             } finally {

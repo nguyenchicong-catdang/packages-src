@@ -5,10 +5,16 @@ namespace Vendorpath\Wp\Esi\Categories;
 class CategoryService
 {
     public function __construct(
-        protected CategoryLoader $loader
+        protected CategoryDataCat $dataCat,
+        protected CategoryDataIds $dataIds
     ) {}
-    public function service($slug = null)
+    public function getDataCat($slug = "")
     {
-        return $this->loader->loader($slug);
+        return $this->dataCat->getData($slug);
+    }
+
+    public function getDataIds($slug = "")
+    {
+        return $this->dataIds->getData($slug);
     }
 }

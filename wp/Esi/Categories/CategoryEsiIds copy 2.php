@@ -3,7 +3,7 @@ namespace Vendorpath\Wp\Esi\Categories;
 
 class CategoryEsiIds
 {
-    public static function esi($slug = "")
+    public function esi($slug = "")
     {
         $dataIds = app(CategoryDataIds::class)->getData($slug);
         // dd($dataIds);

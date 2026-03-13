@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryDataCat
 {
-    public function __construct(
-        protected CategoryLoader $loader,
-    )
-    {
-    }
     public function getData($slug = "")
     {
         $fileName = "categories/data_cat.php";
@@ -31,8 +26,8 @@ class CategoryDataCat
                 set_time_limit(30);
 
                 // get data
-                //$service = app(CategoryService::class)->service($slug);
-                $dataCat = $this->loader->loader($slug)->data_cat;
+                $service = app(CategoryService::class)->service($slug);
+                $dataCat = $service->data_cat;
                 // xử lý description
                 $description = $dataCat['description'] ?? '';
                 $parseDescription = app(CategoryActionParseDescription::class)->action($description);
@@ -45,8 +40,6 @@ class CategoryDataCat
                 if (isset($dataCat['dev'])) {
                     unset($dataCat['dev']);
                 }
-                // add slug
-                $dataCat['slug'] = $slug;
                 // dd($description);
                 // dd($dataCat);
                 // var_export($data, true) sẽ chuyển mảng thành một chuỗi code PHP hợp lệ

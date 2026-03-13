@@ -13,12 +13,18 @@ class CategoryLoader extends Taxonomy
     }
 
     // Accessor: Cho phép gọi $category->ids
-    public function getIdsAttribute()
+    public function getDataIdsAttribute()
     {
         return $this->posts()
             ->status('publish')
+            // ->get();
             ->toBase()
-            ->pluck('ID')
+            ->orderBy('post_date', 'desc')
+            // ->pluck('ID')
+            // ->pluck('post_name', 'post_modified' )
+            ->pluck('post_name')
+            ->take(120)
+            // pluck('ID')->take(100)
             ->toArray();
     }
 
@@ -26,36 +32,20 @@ class CategoryLoader extends Taxonomy
     {
         // Xóa các biến Rank Math cơ bản để tránh hiển thị rác
         // $cleaned = str_replace(['%title%', '%sep%', '%sitename%', '%page%'], '', $text);
-        $description = $this->description ?? '';
-        $name = $this->term->name ?? '';
+        // $description = $this->description ?? '';
+        // $name = $this->term->name ?? '';
         return [
             'dev' => $this,
-            'id' => $this->term_id,
-            'title' => $name,
-            'name' => $name,
-            'image' => $this->seo_image,
-            'description' => $description,
-            'seo_title'   => $this->meta->rank_math_title ?? $name,
-            'seo_description' => $this->meta->rank_math_description ?? $description,
+            'id' => $this->term_id ?? '',
+            'name' => $this->term->name ?? '',
+            'description' => $this->description ?? '',
+            // 'name' => $name,
+            // 'description' => $description,
+            'seo_title'   => $this->meta->rank_math_title ?? '',
+            'seo_description' => $this->meta->rank_math_description ?? '',
         ];
     }
 
-    public function getSeoImageAttribute()
-    {
-        // Lấy bài viết mới nhất (Dùng first thay vì firstOrFail để tránh sập trang)
-        $latestPost = $this->posts()
-            ->status('publish')
-            ->orderBy('ID', 'desc')
-            ->first();
-
-        if ($latestPost && $latestPost->thumbnail) {
-            // Corcel: thumbnail trả về object Attachment hoặc null
-            // Ta lấy URL từ thuộc tính 'url' hoặc 'guid' của Attachment
-            return $latestPost->thumbnail;
-        }
-
-        // Trả về ảnh mặc định nếu không có bài viết hoặc bài viết không có thumbnail
-        return asset('images/default-category.jpg');
-    }
+    
 
 }
