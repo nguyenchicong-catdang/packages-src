@@ -1,6 +1,6 @@
+@props(['slug' => ''])
 @env('local')
-    {{-- {!! \Vendorpath\Wp\Esi\Navbars\NavbarEsi::esi()->getContent() !!} --}}
-    <p>/esi/category/{{$slug}}</p>
+    {!! \Vendorpath\Wp\Esi\Categories\CategoryEsiIds::esi($slug) !!}
 @else
-    <esi:include src="/esi/category/" />
+    <esi:include src="/esi/category/{{$slug}}" />
 @endenv
