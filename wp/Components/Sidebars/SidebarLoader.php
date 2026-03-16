@@ -7,7 +7,7 @@ use Corcel\Model\Option;
 class SidebarLoader extends Option
 {
     // Nếu bạn đặt tên kết nối là 'wordpress' trong database.php
-    protected $connection = 'wordpress';
+    // protected $connection = 'wordpress';
 
     public function getDataSidebar()
     {
