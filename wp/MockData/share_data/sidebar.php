@@ -1,12 +1,17 @@
 <?php return array (
   0 => 
   array (
-    'label' => 'Thùng rác',
-    'slug' => 'thung-rac',
+    'label' => 'Home Fe',
+    'slug' => '/fe',
   ),
   1 => 
   array (
+    'label' => 'Thùng rác',
+    'slug' => '/fe/category/thung-rac',
+  ),
+  2 => 
+  array (
     'label' => 'Xe thu gom rác',
-    'slug' => 'xe-thu-gom-rac',
+    'slug' => '/category/thung-rac',
   ),
 );

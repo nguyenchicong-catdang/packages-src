@@ -18,19 +18,16 @@ class MockDataSidebar
     private static function fakeArray(): array
     {
         return [
-            'Home Fe | /fe',
-            'thùng rác | /fe/category/thung-rac',
-            'xe thu gom rác | /category/thung-rac'
+            'thùng rác',
+            'xe thu gom rác'
         ];
     }
 
     private static function arrayItem(string $item): array
     {
-        $data = explode('|', $item);
         return [
-            'label' => ucfirst(trim($data[0])),
-            // 'slug'  => Str::slug($item)
-            'slug' => trim($data[1])
+            'label' => ucfirst($item),
+            'slug'  => Str::slug($item)
         ];
     }
 

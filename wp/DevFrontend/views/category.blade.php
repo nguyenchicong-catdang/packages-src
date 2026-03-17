@@ -1,3 +1,3 @@
 <x-dev-comp::layout>
-    dev index => này fe múa
+    <x-dev-comp::category.cat-card />
 </x-dev-comp::layout>

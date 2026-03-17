@@ -23,6 +23,8 @@ class MockDataServiceProvider extends ServiceProvider
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MockDataSidebar::mockData(); } ?>";
                     case "navbar":
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MockDataNavbar::mockData(); } ?>";
+                    case "cat_card":
+                        return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MockDataCatCard::mockData(); } ?>";
                     default:
                         // $message = "Mock name [{$name}] không tồn tại trong hệ thống!";
                         // Lưu ý dấu nháy đơn bao quanh $message bên trong chuỗi return
