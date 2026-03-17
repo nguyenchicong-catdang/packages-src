@@ -14,13 +14,9 @@
                 @if (!empty($data))
                     {{ debug($data) }}
                     @foreach ($data as $item)
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ $item['slug'] }}">{{ $item['label'] }}</a>
-                        </li>
                         @if ($item['children'])
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                <a class="nav-link active dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ $item['label'] }}
                                 </a>
@@ -31,6 +27,11 @@
                                     @endforeach
 
                                 </ul>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="{{ $item['slug'] }}">{{ $item['label'] }}</a>
                             </li>
                         @endif
                     @endforeach

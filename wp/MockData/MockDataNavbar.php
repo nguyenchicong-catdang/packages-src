@@ -3,82 +3,104 @@ namespace Vendorpath\Wp\MockData;
 
 class MockDataNavbar
 {
-    // Biến lưu trữ Faker dùng chung
-    private static $faker;
+    private static $name = 'navbar';
+    // private static $dir = __DIR__ . '/share_data/';
 
-    private static function getFaker()
+    private static function getFilePath(): string
     {
-        // if (!self::$faker) {
-        //     self::$faker = \Faker\Factory::create();
-        // }
-        // return self::$faker;
-        // Nếu chưa có thì tạo, có rồi thì trả về luôn
-        return self::$faker ??= \Faker\Factory::create();
+        // MockDataDir::makeDir() => return directory    
+        return MockDataDir::makeDir() . self::$name . '.php';
     }
 
-    private static function fakeData(string $type = 'link')
+    private static function arrLink(): array
+    {
+        return [
+            'Trang chủ',
+            'Giới thiệu',
+            'Sản phẩm',
+            'Liên hệ'
+        ];
+    }
+
+    private static function arrDropdown(): array
+    {
+        return [
+            'Thùng rác',
+            'xe thu gom rác',
+            'thùng rác y tế'
+        ];
+    }
+
+    private static function arrayItem(string $item, string $type = 'link')
     {
         //$faker = \Faker\Factory::create();
         // Sử dụng lại 1 instance duy nhất
-        $faker = self::getFaker();
-        $label = $faker->words(3,true);
         return [
-            'label' => ucfirst($label),
-            'slug' => \Illuminate\Support\Str::slug($label),
+            'label' => ucfirst($item),
+            'slug' => \Illuminate\Support\Str::slug($item),
             'type' => $type,
             'children' => []
         ];
     }
 
-    private static function makeData(string $name = 'navbar')
+    private static function makeData(): array
     {
         $data = [];
-        for ($i = 0; $i < 4; $i++) {
-            $data[] = self::fakeData();
-            if ($i === 3) {
-                $data[$i] = self::fakeData('dropdown');
-                for ($j = 0; $j < 4; $j ++) {
-                    $data[$i]['children'][] = self::fakeData();
+        foreach (self::arrLink() as $item) {
+            // 1. Tạo item cha trước
+            $newItem = self::arrayItem($item);
+
+            // 2. Nếu là Sản phẩm, biến nó thành dropdown và thêm con
+            if ($item === 'Sản phẩm') {
+                $newItem['type'] = 'dropdown'; // Đổi type
+
+                foreach (self::arrDropdown() as $child) {
+                    // Thêm vào mảng children bằng toán tử []
+                    $newItem['children'][] = self::arrayItem($child);
                 }
             }
-        }
 
+            // 3. Đẩy vào mảng tổng
+            $data[] = $newItem;
+        }
         return $data;
     }
 
-    private static function makeFile(string $name = 'navbar')
+    private static function makeFile()
     {
-        $dir = __DIR__ . '/share_data/';
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        $fileName = $dir . $name . '.php';
+        
         $data = self::makeData();
 
         $content = "<?php return " . var_export($data, true) . ";";
 
-        file_put_contents($fileName, $content);
+        file_put_contents(self::getFilePath(), $content);
         return $data;
     }
 
     public static function mockData(bool $force = false,)
     {
-        $dir = __DIR__ . '/share_data/';
-        $name = 'navbar';
-        $fileName = $dir . $name . '.php';
+        // $dir = __DIR__ . '/share_data/';
+        // $name = 'navbar';
+        // $fileName = $dir . $name . '.php';
 
-        if ($force || !file_exists($fileName)) {
-            return self::makeFile($name);
+        if ($force || !file_exists(self::getFilePath())) {
+            return self::makeFile();
         }
 
         // Kiểm tra file có đọc được không trước khi include
-        if (is_readable($fileName)) {
-            return include($fileName);
+        if (is_readable(self::getFilePath())) {
+            return include(self::getFilePath());
         }
 
         return [];
+
+        // return self::makeData();
     }
 }
+// read
 
 // \Vendorpath\Wp\MockData\MockDataNavbar::mockData();
+
+// Làm mới dữ liệu
+
 // \Vendorpath\Wp\MockData\MockDataNavbar::mockData(true);

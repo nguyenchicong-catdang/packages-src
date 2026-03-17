@@ -1,8 +1,8 @@
 <?php return array (
   0 => 
   array (
-    'label' => 'Ipsa nesciunt officiis',
-    'slug' => 'ipsa-nesciunt-officiis',
+    'label' => 'Trang chủ',
+    'slug' => 'trang-chu',
     'type' => 'link',
     'children' => 
     array (
@@ -10,8 +10,8 @@
   ),
   1 => 
   array (
-    'label' => 'Dolorum nihil vero',
-    'slug' => 'dolorum-nihil-vero',
+    'label' => 'Giới thiệu',
+    'slug' => 'gioi-thieu',
     'type' => 'link',
     'children' => 
     array (
@@ -19,24 +19,15 @@
   ),
   2 => 
   array (
-    'label' => 'Architecto est quia',
-    'slug' => 'architecto-est-quia',
-    'type' => 'link',
-    'children' => 
-    array (
-    ),
-  ),
-  3 => 
-  array (
-    'label' => 'Pariatur consectetur cum',
-    'slug' => 'pariatur-consectetur-cum',
+    'label' => 'Sản phẩm',
+    'slug' => 'san-pham',
     'type' => 'dropdown',
     'children' => 
     array (
       0 => 
       array (
-        'label' => 'Sed soluta beatae',
-        'slug' => 'sed-soluta-beatae',
+        'label' => 'Thùng rác',
+        'slug' => 'thung-rac',
         'type' => 'link',
         'children' => 
         array (
@@ -44,8 +35,8 @@
       ),
       1 => 
       array (
-        'label' => 'Reprehenderit aut deserunt',
-        'slug' => 'reprehenderit-aut-deserunt',
+        'label' => 'Xe thu gom rác',
+        'slug' => 'xe-thu-gom-rac',
         'type' => 'link',
         'children' => 
         array (
@@ -53,22 +44,22 @@
       ),
       2 => 
       array (
-        'label' => 'Nulla dolores ut',
-        'slug' => 'nulla-dolores-ut',
+        'label' => 'Thùng rác y tế',
+        'slug' => 'thung-rac-y-te',
         'type' => 'link',
         'children' => 
         array (
         ),
       ),
-      3 => 
-      array (
-        'label' => 'Eveniet qui explicabo',
-        'slug' => 'eveniet-qui-explicabo',
-        'type' => 'link',
-        'children' => 
-        array (
-        ),
-      ),
+    ),
+  ),
+  3 => 
+  array (
+    'label' => 'Liên hệ',
+    'slug' => 'lien-he',
+    'type' => 'link',
+    'children' => 
+    array (
     ),
   ),
 );
