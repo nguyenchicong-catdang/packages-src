@@ -14,11 +14,11 @@
 <body>
     <div class="container">
         <x-dev-comp::header />
-        <main class="row">
-            <div class="col-4">
+        <main class="row mt-2">
+            <div class="col-3">
                 <x-dev-comp::sidebar />
             </div>
-            <div class="col-8">
+            <div class="col-9">
                 {{ $slot }}
             </div>
         </main>
