@@ -12,13 +12,15 @@
 </head>
 
 <body>
+    <x-dev-comp::header />
+    <x-dev-comp::breadcrumb />
+
     <div class="container">
-        <x-dev-comp::header />
         <main class="row mt-2">
-            <div class="col-3">
+            <div class="d-none d-lg-block col-lg-3 p-0">
                 <x-dev-comp::sidebar />
             </div>
-            <div class="col-9">
+            <div class="col-12 col-lg-9">
                 {{ $slot }}
             </div>
         </main>
