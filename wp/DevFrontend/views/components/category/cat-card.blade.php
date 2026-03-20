@@ -24,21 +24,3 @@
         </div>
     </div>
 </div>
-
-<div class="card">
-    <h5 class="card-header">Featured</h5>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
-
-<div class="col-6 p-2">
-    <x-dev-comp::breadcrumb />
-
-    <h1 class="fw-bold text-center"> {{ strtoupper($data['name']) }}</h1>
-    <div class="p-3" style="text-indent: 20px;">
-        {{ $data['description'] }}
-    </div>
-</div>
