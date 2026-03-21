@@ -3,11 +3,9 @@
     {{ debug($data) }}
 @endif
 <div class="row row-cols-1 row-cols-lg-2 g-2 g-lg-4">
-    @foreach ($data as $item)
-    <x-dev-comp::category.cat-post :data="$item"/>
-    @endforeach
+    @for ($i = 0; $i < 12; $i++)
+        <x-dev-comp::category.cat-post :data="[]"/>
+    @endfor
 </div>
 <div class="py-1"></div>
 <x-dev-comp::pagination />
-{{-- @endif --}}
-

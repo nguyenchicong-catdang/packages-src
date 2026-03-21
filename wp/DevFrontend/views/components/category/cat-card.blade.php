@@ -1,7 +1,7 @@
 @mock('cat_card')
 @if (!empty($data))
-    {{ debug($data) }}
-@endif
+    {{-- {{ debug($data) }} --}}
+{{-- @endif --}}
 {{-- <h1 class="fw-bold" style="font-size: calc(1.375rem + 1.5vw);">{{ strtoupper($data['name']) }}</h1> --}}
 
 <div class="row" style="margin-bottom: calc(2vw);">
@@ -24,3 +24,4 @@
         </div>
     </div>
 </div>
+@endif

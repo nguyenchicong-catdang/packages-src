@@ -2,7 +2,7 @@
   0 => 
   array (
     'label' => 'Trang chủ',
-    'slug' => 'trang-chu',
+    'slug' => '/fe',
     'type' => 'link',
     'children' => 
     array (
@@ -27,7 +27,7 @@
       0 => 
       array (
         'label' => 'Thùng rác',
-        'slug' => 'thung-rac',
+        'slug' => '/fe/category/thung-rac',
         'type' => 'link',
         'children' => 
         array (
@@ -54,6 +54,24 @@
     ),
   ),
   3 => 
+  array (
+    'label' => 'Blog',
+    'slug' => 'blog',
+    'type' => 'dropdown',
+    'children' => 
+    array (
+      0 => 
+      array (
+        'label' => 'Web',
+        'slug' => 'web',
+        'type' => 'link',
+        'children' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  4 => 
   array (
     'label' => 'Liên hệ',
     'slug' => 'lien-he',

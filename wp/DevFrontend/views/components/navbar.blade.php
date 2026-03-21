@@ -1,7 +1,8 @@
 @mock('navbar')
+{{debug($data)}}
 <nav class="navbar bg-light navbar-expand-lg fixed-top shadow-sm">
     <div class="container">
-        <a class="navbar-brand mx-auto" href="#">Offcanvas navbar</a>
+        <a class="navbar-brand mx-auto" href="/">Offcanvas navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

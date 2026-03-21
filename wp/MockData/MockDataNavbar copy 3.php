@@ -16,7 +16,7 @@ class MockDataNavbar
     private static function arrLink(): array
     {
         return [
-            'Trang chủ | /fe | link',
+            'Trang chủ | / | link',
             'Giới thiệu | gioi-thieu | link',
             'Sản phẩm | san-pham | dropdown',
             'Blog | blog | dropdown',
@@ -24,12 +24,20 @@ class MockDataNavbar
         ];
     }
 
-    
+    // private static function arrDropdown(): array
+    // {
+    //     return [
+    //         'Thùng rác',
+    //         'xe thu gom rác',
+    //         'thùng rác y tế'
+    //     ];
+    // }
+
     private static function arrDropdown(): array
     {
         return [
             'Sản phẩm' => [
-                'Thùng rác | /fe/category/thung-rac | link',
+                'Thùng rác | thung-rac | link',
                 'xe thu gom rác | xe-thu-gom-rac | link',
                 'thùng rác y tế | thung-rac-y-te | link'
             ],
@@ -39,8 +47,22 @@ class MockDataNavbar
         ];
     }
 
+    // private static function arrayItem(string $item, string $type = 'link')
+    // {
+    //     //$faker = \Faker\Factory::create();
+    //     // Sử dụng lại 1 instance duy nhất
+    //     return [
+    //         'label' => ucfirst($item),
+    //         'slug' => \Illuminate\Support\Str::slug($item),
+    //         'type' => $type,
+    //         'children' => []
+    //     ];
+    // }
+
     private static function arrayItem(?array $item)
     {
+        //$faker = \Faker\Factory::create();
+        // Sử dụng lại 1 instance duy nhất
         return [
             'label' => ucfirst($item[0]),
             'slug' => $item[1],
@@ -49,7 +71,7 @@ class MockDataNavbar
         ];
     }
 
-    private static function makeArrItems()
+    public static function makeArrItems()
     {
         $items = self::arrLink();
         $data = [];
@@ -59,11 +81,13 @@ class MockDataNavbar
             // 2. Viết lại array
             $data[] = self::arrayItem($parts);
         }
+        // $arrItem = array_map('trim', explode('|', $item));
         return $data;
+        // \Vendorpath\Wp\MockData\MockDataNavbar::makeArrItems();
 
     }
 
-    private static function makeArrDropdown()
+    public static function makeArrDropdown()
     {
         $dataDropdown = self::arrDropdown();
         $data = [];
@@ -75,11 +99,38 @@ class MockDataNavbar
         }
         return $data;
     }
+    // \Vendorpath\Wp\MockData\MockDataNavbar::makeArrDropdown();
 
-    private static function makeData(): array
+
+
+    // private static function makeData(): array
+    // {
+    //     $data = [];
+    //     foreach (self::arrLink() as $item) {
+    //         // 1. Tạo item cha trước
+    //         $newItem = self::arrayItem($item);
+
+    //         // 2. Nếu là Sản phẩm, biến nó thành dropdown và thêm con
+    //         if ($item === 'Sản phẩm') {
+    //             $newItem['type'] = 'dropdown'; // Đổi type
+
+    //             foreach (self::arrDropdown() as $child) {
+    //                 // Thêm vào mảng children bằng toán tử []
+    //                 $newItem['children'][] = self::arrayItem($child);
+    //             }
+    //         }
+
+    //         // 3. Đẩy vào mảng tổng
+    //         $data[] = $newItem;
+    //     }
+    //     return $data;
+    // }
+
+    public static function makeData(): array
     {
         $dataSubMenu = self::makeArrItems();
         $dataDropdown = self::makeArrDropdown();
+        // $dataDropdow = self
         $data = [];
         foreach ($dataSubMenu as $sub) {
             if ($sub['type'] === 'dropdown' && array_key_exists($sub['label'], $dataDropdown)) {
@@ -90,6 +141,8 @@ class MockDataNavbar
         }
         return $data;
     }
+    // \Vendorpath\Wp\MockData\MockDataNavbar::makeData();
+
 
     private static function makeFile()
     {
@@ -104,6 +157,10 @@ class MockDataNavbar
 
     public static function mockData(bool $force = false,)
     {
+        // $dir = __DIR__ . '/share_data/';
+        // $name = 'navbar';
+        // $fileName = $dir . $name . '.php';
+
         if ($force || !file_exists(self::getFilePath())) {
             return self::makeFile();
         }
@@ -115,6 +172,7 @@ class MockDataNavbar
 
         return [];
 
+        // return self::makeData();
     }
 }
 // read
