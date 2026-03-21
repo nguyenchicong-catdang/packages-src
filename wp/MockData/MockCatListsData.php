@@ -14,7 +14,7 @@ class MockCatListsData
     private static function fakeData(int $count = 12)
     {
         $data = [];
-        for ($i = 0; $i <= $count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $data[] = MockCatPostData::fakeData();
         }
         return $data;

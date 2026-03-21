@@ -1,5 +1,5 @@
 @mock('navbar')
-{{debug($data)}}
+{{-- {{debug($data)}} --}}
 <nav class="navbar bg-light navbar-expand-lg fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand mx-auto" href="/">Offcanvas navbar</a>

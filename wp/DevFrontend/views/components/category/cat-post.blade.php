@@ -1,6 +1,6 @@
 @mock('cat_post')
 @if (!empty($data))
-    {{ debug($data) }}
+    {{-- {{ debug($data) }} --}}
 <div class="col">
     <div class="card h-100 shadow-sm">
         <div class="card-header">
@@ -8,12 +8,12 @@
                     class="stretched-link text-decoration-none link-dark">{{ucfirst($data['title'])}}</a></h5>
         </div>
         <div class="row g-0">
-            <div class="col-6">
-                <div class="ratio ratio-1x1" style="max-width:250px;">
+            <div class="col" style="max-width:250px;">
+                <div class="ratio ratio-1x1">
                     <img src="{{$data['featured_src']}}" class="img-fluid" alt="{{$data['featured_alt']}}">
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col">
                 <div class="card-body">
                     <p class="card-text"
                         style="

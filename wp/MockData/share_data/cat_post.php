@@ -1,7 +1,7 @@
 <?php return array (
-  'title' => 'inventore ex natus explicabo sunt',
-  'slug' => 'inventore-ex-natus-explicabo-sunt',
-  'excerpt' => 'Magni neque libero architecto quis. Illo optio optio maxime ab. Aut adipisci in nobis dignissimos. Magnam dolorem voluptatibus sit ut ab fugit saepe. Vel repudiandae quo corporis quas consequatur ad. Ut ut sint reprehenderit repellendus. Iusto sed aut suscipit possimus pariatur.',
+  'title' => 'rerum dolorum magni nam consectetur',
+  'slug' => 'rerum-dolorum-magni-nam-consectetur',
+  'excerpt' => 'Libero laboriosam iure explicabo omnis et qui ipsum voluptatem. A voluptas error autem unde pariatur voluptatibus. Accusamus odit cum voluptates et nostrum. Voluptate voluptatum necessitatibus omnis aliquid inventore commodi. Sint eveniet voluptas eaque in. Ut ducimus occaecati asperiores eligendi quis. Esse ex placeat assumenda sed.',
   'featured_src' => 'https://dummyimage.com/250',
-  'featured_alt' => 'Alt hinh anh inventore ex natus explicabo sunt',
+  'featured_alt' => 'Alt hinh anh rerum dolorum magni nam consectetur',
 );

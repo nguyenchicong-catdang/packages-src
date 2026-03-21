@@ -22,7 +22,8 @@ class MockCatPostData
     public static function fakeData()
     {
         $faker = self::getFaker();
-        $title = $faker->words(5, true);
+        // $title = $faker->words(5, true);
+        $title = $faker->unique()->words(5, true);
         return [
             'title' => $title,
             'slug' => Str::slug($title),
