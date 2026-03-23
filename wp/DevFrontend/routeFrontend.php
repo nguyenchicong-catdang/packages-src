@@ -8,7 +8,5 @@ Route::prefix('fe')->group(function () {
         return view('dev-view::index');
     });
 
-    Route::get('category/{slug}', function() {
-        return view('dev-view::category');
-    });
+    Route::get('category/{slug}', [\Vendorpath\Wp\DevFrontend\Categories\DevCategoryController::class, 'show']);
 });

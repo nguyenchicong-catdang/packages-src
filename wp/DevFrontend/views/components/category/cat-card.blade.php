@@ -1,4 +1,4 @@
-@mock('cat_card')
+{{-- @mock('cat_card') --}}
 @if (!empty($data))
     {{-- {{ debug($data) }} --}}
     {{-- @endif --}}

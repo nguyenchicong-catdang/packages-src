@@ -5,17 +5,16 @@
 @php
     $space = 'p-0 m-2 p-md-2 px-md-3';
     $items = $data['total_items'] ?? 1;
-    $limit = $data['limit'] ?? 12;
-    // $limit = 1;
+    // $limit = $data['limit'] ?? 12;
+    $limit = 1;
 
-    $total_pages = $data['total_pages'] ?? min((int) ceil($items / $limit), 10);
+    $total_pages = min((int) ceil($items / $limit), 10);
 
-    $current_page = (int) $data['current_page'] ?? ($data['current_page'] ?? request('page', 1));;
+    $current_page = request()->query('page') ?? 1;
 @endphp
 
 {{ debug($total_pages) }}
 {{-- {{ debug(request()->fullUrlWithQuery(['type' => 'phone'])) }} --}}
-{{debug(request('page', 1))}}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
