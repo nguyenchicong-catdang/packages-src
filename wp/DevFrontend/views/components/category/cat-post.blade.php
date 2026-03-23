@@ -10,7 +10,7 @@
         <div class="row g-0">
             <div class="col" style="max-width:250px;">
                 <div class="ratio ratio-1x1">
-                    <img src="{{$data['featured_src']}}" class="img-fluid" alt="{{$data['featured_alt']}}">
+                    <img src="{{$data['featured_src']}}" class="img-fluid" alt="{{$data['featured_alt']}}" loading="lazy">
                 </div>
             </div>
             <div class="col">
