@@ -1,4 +1,4 @@
 <header>
-    <nav class="navbar opacity-0" style="margin: calc(2vw);"><a class="navbar-brand" href="/">Home</a></nav>
+    <div class="opacity-0 p-1 m-lg-4" style="height: 5rem"></div>
     <x-dev-comp::navbar />
 </header>

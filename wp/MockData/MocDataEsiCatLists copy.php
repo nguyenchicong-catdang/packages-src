@@ -24,20 +24,14 @@ class MocDataEsiCatLists
         // 3. Cắt cả 2 mảng theo cùng một vị trí offset và limit
         $slicedSlugs = array_slice($allSlugs, $offset, self::$limit);
         $slicedData = array_slice($allData, $offset, self::$limit);
-        // dd($slicedData);
-        // su ly ghi đè slug lai slug
-        $slugData = array_map(function($slug) {
-            $slug['slug'] = '/fe/post/' . $slug['slug'];
-            return $slug;
-        }, $slicedData);
+
         // 4. Kết hợp chúng lại
         $result = [];
         foreach ($slicedSlugs as $index => $slug) {
             $result[] = [
                 'slug'      => $slug,
                 // Lấy phần tử tương ứng từ mảng data đã cắt
-                // 'slug_data' => $slicedData[$index] ?? null
-                'slug_data' => $slugData[$index] ?? null
+                'slug_data' => $slicedData[$index] ?? null
             ];
         }
 

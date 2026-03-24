@@ -1,8 +1,6 @@
 @mock('pagination')
-@if (!empty($data))
-    {{-- {{ debug($data) }} --}}
-@endif
 @php
+    $data ??= ['null: data'];
     $space = 'p-0 m-2 p-md-2 px-md-3';
     $items = $data['total_items'] ?? 1;
     $limit = $data['limit'] ?? 12;
@@ -10,7 +8,7 @@
 
     $total_pages = $data['total_pages'] ?? min((int) ceil($items / $limit), 10);
 
-    $current_page = (int) $data['current_page'] ?? ($data['current_page'] ?? request('page', 1));;
+    $current_page = (int) ($data['current_page'] ?? request('page', 1));
 @endphp
 
 {{-- {{ debug($total_pages) }} --}}

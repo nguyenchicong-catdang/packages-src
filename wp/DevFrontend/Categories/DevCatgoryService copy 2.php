@@ -26,16 +26,15 @@ class DevCatgoryService
         $pagedSlugsData = array_slice($allData['slugs'], $offset, $limit);
         $pagedListsData = array_slice($allData['cat_lists'], $offset, $limit);
         // xử lý lại slug
-        $slug_data = array_map(function($slug) {
-            $slug['slug'] = '/fe/post/'. $slug['slug'];
-            return $slug;
-        }, $pagedListsData);
+        // $slug_data = array_map(function($slug) {
+
+        // }, $pagedListsData);
         // 4. Kết hợp chúng lại
         $result = [];
         foreach($pagedSlugsData as $index => $slug) {
             $result[] = [
                 'slug' => $slug,
-                'slug_data' => $slug_data[$index] ?? ''
+                'slug_data' => $pagedListsData[$index] ?? ''
             ];
         }
 
