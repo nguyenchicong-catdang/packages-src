@@ -29,6 +29,8 @@ class MockDataServiceProvider extends ServiceProvider
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MockCatPostData::mockData(); } ?>";
                     case "cat_lists":
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MockCatListsData::mockData(); } ?>";
+                    case "esi_cat_slugs":
+                        return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataEsiCatLists::mockData(); } ?>";
                     case "pagination":
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataPagination::mockData(); } ?>";
                     default:

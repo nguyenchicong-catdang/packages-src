@@ -2,7 +2,6 @@
 namespace Vendorpath\Wp\DevFrontend\Categories;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Blade;
 
 class DevCategoryController extends Controller
 {
@@ -11,9 +10,5 @@ class DevCategoryController extends Controller
         $data =$service->service();
         // dd($data);
         return view('dev-view::category', ['data' => $data]);
-    }
-
-    public function esi(){
-        return Blade::render('<x-dev-esi::esi-list-cat-posts />');
     }
 }
