@@ -13,9 +13,9 @@
     $current_page = (int) $data['current_page'] ?? ($data['current_page'] ?? request('page', 1));;
 @endphp
 
-{{ debug($total_pages) }}
+{{-- {{ debug($total_pages) }} --}}
 {{-- {{ debug(request()->fullUrlWithQuery(['type' => 'phone'])) }} --}}
-{{debug(request('page', 1))}}
+{{-- {{debug(request('page', 1))}} --}}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item">

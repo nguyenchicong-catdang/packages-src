@@ -1,4 +1,4 @@
-{{debug($data)}}
+{{-- {{debug($data)}} --}}
 <x-dev-comp::layout>
     {{-- <x-dev-comp::breadcrumb /> --}}
     <x-dev-comp::category.cat-card :data="$data['cat_card']"/>
