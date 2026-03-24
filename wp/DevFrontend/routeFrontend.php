@@ -17,7 +17,7 @@ Route::prefix('fe')->group(function () {
 
     // {{post/slug}}
     Route::get('post/{slug}', function() {
-        return 'abc';
+        return view('dev-view::post');
     })->name('post');
     // esi
 

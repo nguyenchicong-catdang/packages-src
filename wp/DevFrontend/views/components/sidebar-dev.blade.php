@@ -9,8 +9,12 @@ $collection = [
         'slug' => '/fe/test'
     ],
     [
-        'label' => 'Dev Fe Category',
+        'label' => 'Dev Fe Category Slug',
         'slug' => '/fe/category/slug'
+    ],
+    [
+        'label' => 'Dev Fe Post Slug',
+        'slug' => '/fe/post/slug'
     ],
 ]
 @endphp

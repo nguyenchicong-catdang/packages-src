@@ -1,7 +1,7 @@
 <x-dev-comp::layout>
     <h1>Test dev fe</h1>
     <hr>
-    <x-dev-comp::header />
+    {{-- <x-dev-comp::header /> --}}
     <hr>
     <x-dev-comp::sidebar />
     <hr>
