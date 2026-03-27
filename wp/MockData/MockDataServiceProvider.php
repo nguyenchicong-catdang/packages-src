@@ -33,6 +33,10 @@ class MockDataServiceProvider extends ServiceProvider
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataEsiCatLists::mockData(); } ?>";
                     case "pagination":
                         return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataPagination::mockData(); } ?>";
+                    case "post_card":
+                        return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataPost::mockData(); } ?>";
+                    case "post_content":
+                        return "<?php if(!isset(\$data)) { \$data = \Vendorpath\Wp\MockData\MocDataPostContent::mockData(); } ?>";
                     default:
                         // $message = "Mock name [{$name}] không tồn tại trong hệ thống!";
                         // Lưu ý dấu nháy đơn bao quanh $message bên trong chuỗi return
