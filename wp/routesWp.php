@@ -9,3 +9,6 @@ Route::get('/test', function() {
 Route::get('/', function(){
     return view('wp-view::index');
 });
+
+// category
+Route::get('/category/{slug}', [\Vendorpath\Wp\Categories\CategoryController::class, 'show']);
